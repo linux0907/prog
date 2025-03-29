@@ -18,9 +18,10 @@ const studentData = [
   }
 ];
 
+// 현재 로그인 시도 중인 학생 객체 저장용
 let currentStudent = null;
 
-// 학번 + 이름 입력 후 '조회' 버튼 처리
+// STEP 1: 학번 + 이름 입력 후 조회 버튼 처리
 document.getElementById("lookupForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -33,22 +34,26 @@ document.getElementById("lookupForm").addEventListener("submit", function (e) {
 
   if (found) {
     currentStudent = found;
+
+    // STEP 2로 이동: 본인확인 질문 폼 표시
     document.getElementById("lookupForm").classList.add("hidden");
     document.getElementById("securityQuestionForm").classList.remove("hidden");
-    document.getElementById("securityQuestionText").textContent = found.question;
+
+    // ✅ 사용자에게 질문 내용은 보여주지 않음
+    document.getElementById("securityQuestionText").textContent = "히든 질문에 대한 당신의 대답은 무엇인가요?";
   } else {
     alert("일치하는 학생 정보를 찾을 수 없습니다.");
   }
 });
 
-// 본인 확인 질문에 답변 입력 후 제출
+// STEP 2: 본인확인 질문에 대한 답변 확인
 document.getElementById("securityQuestionForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const userAnswer = document.getElementById("securityAnswer").value.trim();
 
   if (currentStudent && userAnswer === currentStudent.answer) {
-    // 질문 정답 → 결과 표시
+    // STEP 3: 정답일 경우 결과 표시
     document.getElementById("securityQuestionForm").classList.add("hidden");
     document.getElementById("result").classList.remove("hidden");
 
