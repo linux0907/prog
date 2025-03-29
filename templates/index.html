@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>학생 계정 조회</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>학생 계정 조회 시스템</h1>
+    
+    <form id="lookupForm">
+      <label for="studentId">학번:</label>
+      <input type="text" id="studentId" name="studentId" required>
+
+      <label for="studentName">이름:</label>
+      <input type="text" id="studentName" name="studentName" required>
+
+      <button type="submit">조회</button>
+    </form>
+
+    <div id="result" class="hidden">
+      <h2>조회 결과</h2>
+      <p><strong>구글 ID:</strong> <span id="googleId"></span></p>
+      <p><strong>비밀번호:</strong> <span id="googlePw"></span></p>
+    </div>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
