@@ -1,34 +1,60 @@
-// 예시 데이터: 실제 배포 시엔 서버에서 받아오도록!
-const studentAccounts = [
-  { id: "20230001", name: "김민수", googleId: "kms2023@gmail.com", googlePw: "pw1234" },
-  { id: "20230002", name: "이서연", googleId: "lsy2023@gmail.com", googlePw: "pw5678" },
-  { id: "20230003", name: "박지훈", googleId: "pjh2023@gmail.com", googlePw: "pw9999" },
+// 학생 정보 샘플 데이터 (실제 서비스에선 백엔드에서 받아와야 함)
+const studentData = [
+  {
+    studentId: "20230001",
+    studentName: "홍길동",
+    question: "당신의 출생지는 어디인가요?",
+    answer: "서울",
+    googleId: "honggildong@gmail.com",
+    googlePw: "password1234"
+  },
+  {
+    studentId: "20230002",
+    studentName: "김철수",
+    question: "어릴 적 애완동물 이름은?",
+    answer: "초코",
+    googleId: "kimchulsoo@gmail.com",
+    googlePw: "mypassword5678"
+  }
 ];
 
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("lookupForm");
-  const resultBox = document.getElementById("result");
-  const googleIdSpan = document.getElementById("googleId");
-  const googlePwSpan = document.getElementById("googlePw");
+let currentStudent = null;
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault(); // 폼 기본 제출 막기
+// 학번 + 이름 입력 후 '조회' 버튼 처리
+document.getElementById("lookupForm").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-    const studentId = document.getElementById("studentId").value.trim();
-    const studentName = document.getElementById("studentName").value.trim();
+  const studentId = document.getElementById("studentId").value.trim();
+  const studentName = document.getElementById("studentName").value.trim();
 
-    const account = studentAccounts.find(
-      (s) => s.id === studentId && s.name === studentName
-    );
+  const found = studentData.find(
+    (student) => student.studentId === studentId && student.studentName === studentName
+  );
 
-    if (account) {
-      googleIdSpan.textContent = account.googleId;
-      googlePwSpan.textContent = account.googlePw;
-      resultBox.classList.remove("hidden");
-    } else {
-      googleIdSpan.textContent = "일치하는 정보가 없습니다.";
-      googlePwSpan.textContent = "";
-      resultBox.classList.remove("hidden");
-    }
-  });
+  if (found) {
+    currentStudent = found;
+    document.getElementById("lookupForm").classList.add("hidden");
+    document.getElementById("securityQuestionForm").classList.remove("hidden");
+    document.getElementById("securityQuestionText").textContent = found.question;
+  } else {
+    alert("일치하는 학생 정보를 찾을 수 없습니다.");
+  }
+});
+
+// 본인 확인 질문에 답변 입력 후 제출
+document.getElementById("securityQuestionForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const userAnswer = document.getElementById("securityAnswer").value.trim();
+
+  if (currentStudent && userAnswer === currentStudent.answer) {
+    // 질문 정답 → 결과 표시
+    document.getElementById("securityQuestionForm").classList.add("hidden");
+    document.getElementById("result").classList.remove("hidden");
+
+    document.getElementById("googleId").textContent = currentStudent.googleId;
+    document.getElementById("googlePw").textContent = currentStudent.googlePw;
+  } else {
+    alert("본인 확인 질문의 답이 틀렸습니다. 다시 시도해주세요.");
+  }
 });
