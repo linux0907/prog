@@ -1,0 +1,55 @@
+/* 구글 폰트 연결 */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;500;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #111;
+  color: #f1f1f1;
+  font-family: 'Oswald', sans-serif;
+}
+
+.container {
+  max-width: 500px;
+  margin: 100px auto;
+  padding: 40px;
+  background-color: #1c1c1c;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 48px;
+  color: #e50914;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+label {
+  font-size: 16px;
+  text-align: left;
+  color: #ccc;
+}
+
+input {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2b2b2b;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  background-color: #333;
+  box-shadow: 0 0
